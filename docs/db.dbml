@@ -1,0 +1,96 @@
+// Copy this text, paste to https://dbdiagram.io/d
+// Or, https://databasediagram.com/app
+
+Table Customer {
+    id INTEGER [primary key]
+    name VARCHAR 
+    email VARCHAR 
+    }
+
+Table Employee {
+    id INTEGER [primary key]
+    name VARCHAR 
+    position VARCHAR 
+    }
+
+Table Expiry {
+    id INTEGER [primary key]
+    fruit_id INTEGER 
+    expiry_date DATETIME 
+    }
+
+Table Fruit {
+    id INTEGER [primary key]
+    name VARCHAR 
+    price_per_kg FLOAT 
+    }
+
+Table Inventory {
+    id INTEGER [primary key]
+    fruit_id INTEGER 
+    quantity_kg FLOAT 
+    }
+
+Table Order {
+    id INTEGER [primary key]
+    customer_id INTEGER 
+    order_date DATETIME 
+    }
+
+Table OrderDetail {
+    id INTEGER [primary key]
+    order_id INTEGER 
+    fruit_id INTEGER 
+    quantity_kg FLOAT 
+    }
+
+Table Promotion {
+    id INTEGER [primary key]
+    fruit_id INTEGER 
+    discount_percentage FLOAT 
+    start_date DATETIME 
+    end_date DATETIME 
+    }
+
+Table Sale {
+    id INTEGER [primary key]
+    employee_id INTEGER 
+    fruit_id INTEGER 
+    quantity_kg FLOAT 
+    sale_date DATETIME 
+    }
+
+Table SaleDetail {
+    id INTEGER [primary key]
+    sale_id INTEGER 
+    fruit_id INTEGER 
+    price_sold FLOAT 
+    }
+
+Table Supplier {
+    id INTEGER [primary key]
+    name VARCHAR 
+    contact_info VARCHAR 
+    }
+
+Table SupplierFruit {
+    id INTEGER [primary key]
+    supplier_id INTEGER 
+    fruit_id INTEGER 
+    }
+
+
+
+// Relationships
+    Ref: Expiry.(fruit_id) < Fruit.(id)
+    Ref: Inventory.(fruit_id) < Fruit.(id)
+    Ref: Order.(customer_id) < Customer.(id)
+    Ref: OrderDetail.(fruit_id) < Fruit.(id)
+    Ref: OrderDetail.(order_id) < Order.(id)
+    Ref: Promotion.(fruit_id) < Fruit.(id)
+    Ref: Sale.(employee_id) < Employee.(id)
+    Ref: Sale.(fruit_id) < Fruit.(id)
+    Ref: SaleDetail.(fruit_id) < Fruit.(id)
+    Ref: SaleDetail.(sale_id) < Sale.(id)
+    Ref: SupplierFruit.(fruit_id) < Fruit.(id)
+    Ref: SupplierFruit.(supplier_id) < Supplier.(id)

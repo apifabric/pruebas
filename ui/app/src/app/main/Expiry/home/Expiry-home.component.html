@@ -1,0 +1,42 @@
+<o-form-layout-manager attr="Expiry" mode="tab" title="EXPIRY">
+    <div fxFill fxLayout="column" fxLayoutAlign="start">
+        <o-table 
+            attr="ExpiryTable" 
+            service="Expiry" 
+            entity="Expiry" 
+            title="EXPIRY"
+            keys="id"
+            columns="id;fruit_id;expiry_date" 
+            header-actions="R;D"
+            visible-columns="id;fruit_id;expiry_date"  
+            sort-columns="id" 
+            query-rows="20" 
+            quick-filter="yes"
+            row-height="medium" 
+            select-all-checkbox="true" 
+            pageable="yes"  
+            auto-adjust="true" 
+            virtual-scroll="yes" 
+            edition-mode="dblclick"
+            horizontal-scroll="yes"
+            show-title="yes"
+            export-button="yes">
+            
+            <o-table-column #id attr="id" title=" id*" type="integer" editable="no" required="no" content-align="center"></o-table-column>
+            
+            <o-table-column attr="fruit_id" title="fruit_id">
+    <o-table-cell-renderer-service attr="fruit_id" 
+        service="Fruit" entity="FruitType" columns="id;name"
+        parent-keys="id:fruit_id"
+        value-column="name" keys="fruit_id"
+        visible-columns="name" separator=" - " width="680px">
+    </o-table-cell-renderer-service>
+</o-table-column>
+            
+            <o-date-input #expiry_date attr="expiry_date" type="timestamp" label="expiry_date" editable="no" required="yes" format="LL" fxFlex="20%" class="form-field"></o-date-input>
+            
+            <o-table-context-menu></o-table-context-menu>
+            <o-table-paginator page-size-options="24;48;96"></o-table-paginator>
+        </o-table>
+    </div>
+</o-form-layout-manager>

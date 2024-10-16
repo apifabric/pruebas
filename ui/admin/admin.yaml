@@ -1,0 +1,358 @@
+about:
+  date: October 16, 2024 20:40:47
+  recent_changes: works with modified safrs-react-admin
+  version: 0.0.0
+api_root: '{http_type}://{swagger_host}:{port}/{api}'
+authentication: '{system-default}'
+info:
+  number_relationships: 12
+  number_tables: 12
+info_toggle_checked: true
+resources:
+  Customer:
+    attributes:
+    - label: ' name*'
+      name: name
+      required: true
+      search: true
+      sort: true
+    - name: email
+      required: true
+    - name: id
+    description: Table to store customer information.
+    info_list: Table to store customer information.
+    tab_groups:
+    - direction: tomany
+      fks:
+      - customer_id
+      name: OrderList
+      resource: Order
+    type: Customer
+    user_key: name
+  Employee:
+    attributes:
+    - label: ' name*'
+      name: name
+      required: true
+      search: true
+      sort: true
+    - name: position
+      required: true
+    - name: id
+    description: Table to store employee details who work in the store.
+    info_list: Table to store employee details who work in the store.
+    tab_groups:
+    - direction: tomany
+      fks:
+      - employee_id
+      name: SaleList
+      resource: Sale
+    type: Employee
+    user_key: name
+  Expiry:
+    attributes:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+    - name: fruit_id
+      required: true
+    - name: expiry_date
+      required: true
+    description: Table to track the expiry dates of fruits in inventory.
+    info_list: Table to track the expiry dates of fruits in inventory.
+    tab_groups:
+    - direction: toone
+      fks:
+      - fruit_id
+      name: fruit
+      resource: Fruit
+    type: Expiry
+    user_key: id
+  Fruit:
+    attributes:
+    - label: ' name*'
+      name: name
+      required: true
+      search: true
+      sort: true
+    - name: price_per_kg
+      required: true
+    - name: id
+    description: Table to store information about different types of fruits available
+      in the store.
+    info_list: Table to store information about different types of fruits available
+      in the store.
+    tab_groups:
+    - direction: tomany
+      fks:
+      - fruit_id
+      name: ExpiryList
+      resource: Expiry
+    - direction: tomany
+      fks:
+      - fruit_id
+      name: InventoryList
+      resource: Inventory
+    - direction: tomany
+      fks:
+      - fruit_id
+      name: OrderDetailList
+      resource: OrderDetail
+    - direction: tomany
+      fks:
+      - fruit_id
+      name: PromotionList
+      resource: Promotion
+    - direction: tomany
+      fks:
+      - fruit_id
+      name: SaleList
+      resource: Sale
+    - direction: tomany
+      fks:
+      - fruit_id
+      name: SaleDetailList
+      resource: SaleDetail
+    - direction: tomany
+      fks:
+      - fruit_id
+      name: SupplierFruitList
+      resource: SupplierFruit
+    type: Fruit
+    user_key: name
+  Inventory:
+    attributes:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+    - name: fruit_id
+      required: true
+    - name: quantity_kg
+      required: true
+    description: Table to manage the inventory levels of different fruits.
+    info_list: Table to manage the inventory levels of different fruits.
+    tab_groups:
+    - direction: toone
+      fks:
+      - fruit_id
+      name: fruit
+      resource: Fruit
+    type: Inventory
+    user_key: id
+  Order:
+    attributes:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+    - name: customer_id
+      required: true
+    - name: order_date
+      required: true
+    description: Table to store orders placed by customers.
+    info_list: Table to store orders placed by customers.
+    tab_groups:
+    - direction: tomany
+      fks:
+      - order_id
+      name: OrderDetailList
+      resource: OrderDetail
+    - direction: toone
+      fks:
+      - customer_id
+      name: customer
+      resource: Customer
+    type: Order
+    user_key: id
+  OrderDetail:
+    attributes:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+    - name: fruit_id
+      required: true
+    - name: order_id
+      required: true
+    - name: quantity_kg
+      required: true
+    description: Table to store details of each order, including the fruits and quantities
+      ordered.
+    info_list: Table to store details of each order, including the fruits and quantities
+      ordered.
+    tab_groups:
+    - direction: toone
+      fks:
+      - fruit_id
+      name: fruit
+      resource: Fruit
+    - direction: toone
+      fks:
+      - order_id
+      name: order
+      resource: Order
+    type: OrderDetail
+    user_key: id
+  Promotion:
+    attributes:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+    - name: fruit_id
+      required: true
+    - name: discount_percentage
+      required: true
+    - name: start_date
+      required: true
+    - name: end_date
+      required: true
+    description: Table to store promotional offers for various fruits.
+    info_list: Table to store promotional offers for various fruits.
+    tab_groups:
+    - direction: toone
+      fks:
+      - fruit_id
+      name: fruit
+      resource: Fruit
+    type: Promotion
+    user_key: id
+  Sale:
+    attributes:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+    - name: employee_id
+      required: true
+    - name: fruit_id
+      required: true
+    - name: quantity_kg
+      required: true
+    - name: sale_date
+      required: true
+    description: Table to store sales transactions made by employees.
+    info_list: Table to store sales transactions made by employees.
+    tab_groups:
+    - direction: tomany
+      fks:
+      - sale_id
+      name: SaleDetailList
+      resource: SaleDetail
+    - direction: toone
+      fks:
+      - employee_id
+      name: employee
+      resource: Employee
+    - direction: toone
+      fks:
+      - fruit_id
+      name: fruit
+      resource: Fruit
+    type: Sale
+    user_key: id
+  SaleDetail:
+    attributes:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+    - name: fruit_id
+      required: true
+    - name: sale_id
+      required: true
+    - name: price_sold
+      required: true
+    description: Table to store detailed information of each sale including pricing.
+    info_list: Table to store detailed information of each sale including pricing.
+    tab_groups:
+    - direction: toone
+      fks:
+      - fruit_id
+      name: fruit
+      resource: Fruit
+    - direction: toone
+      fks:
+      - sale_id
+      name: sale
+      resource: Sale
+    type: SaleDetail
+    user_key: id
+  Supplier:
+    attributes:
+    - label: ' name*'
+      name: name
+      required: true
+      search: true
+      sort: true
+    - name: contact_info
+    - name: id
+    description: Table to store details about suppliers providing fruits to the store.
+    info_list: Table to store details about suppliers providing fruits to the store.
+    tab_groups:
+    - direction: tomany
+      fks:
+      - supplier_id
+      name: SupplierFruitList
+      resource: SupplierFruit
+    type: Supplier
+    user_key: name
+  SupplierFruit:
+    attributes:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+    - name: fruit_id
+      required: true
+    - name: supplier_id
+      required: true
+    description: Table to manage the relationship between suppliers and the fruits
+      they supply.
+    info_list: Table to manage the relationship between suppliers and the fruits they
+      supply.
+    tab_groups:
+    - direction: toone
+      fks:
+      - fruit_id
+      name: fruit
+      resource: Fruit
+    - direction: toone
+      fks:
+      - supplier_id
+      name: supplier
+      resource: Supplier
+    type: SupplierFruit
+    user_key: id
+settings:
+  HomeJS: /admin-app/home.js
+  max_list_columns: 8
+  style_guide:
+    applicationLocales:
+    - en
+    - es
+    currency_symbol: $
+    currency_symbol_position: left
+    date_format: LL
+    decimal_max: '1000000000'
+    decimal_min: '0'
+    decimal_separator: .
+    detail_mode: tab
+    edit_on_mode: dblclick
+    include_translation: 'false'
+    keycloak_client_id: alsclient
+    keycloak_realm: kcals
+    keycloak_url: http://localhost:8080
+    locale: en
+    max_decimal_digits: '4'
+    min_decimal_digits: '2'
+    new_mode: dialog
+    pick_style: list
+    row_height: small,
+    serviceType: OntimizeEE
+    startSessionPath: /auth/login
+    style: light
+    thousand_separator: ','
+    use_keycloak: 'false'

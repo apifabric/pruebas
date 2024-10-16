@@ -1,0 +1,394 @@
+<div class="container">
+<o-form-container breadcrumb="yes" breadcrumb-label-columns="name" breadcrumb-separator=", " class="fill-form">
+      <o-form #form attr="Fruit_form_edit" 
+        service="Fruit" 
+        entity="Fruit" 
+        fxLayout="column" 
+        show-header="yes" 
+        header-actions="R;I;U;D"
+        #oDetailForm keys="id" 
+        keys-sql-types="INTEGER" 
+        show-header-navigation="yes"
+        (onDataLoaded)="onDataLoaded($event)">
+
+  <o-row attr="row1" layout-align="start stretch">
+    <div fxLayout="row wrap" fxLayoutAlign="start start" fxFlex fxLayoutGap="14px">
+      
+      <o-text-input #name attr="name" label=" name*" enabled="yes" required="yes" fxFlex="20%" class="form-field"></o-text-input>
+      
+      <o-text-input #price_per_kg attr="price_per_kg" label="price_per_kg" enabled="yes" required="yes" fxFlex="20%" class="form-field"></o-text-input>
+      
+      <o-integer-input #id attr="id" label="id" type="integer" editable="no" required="no" ></o-integer-input>
+      
+    </div>
+  </o-row>
+      
+      <mat-tab-group fxFill>
+        
+        <mat-tab label="EXPIRY-fruit_id">
+    <div layout-padding>
+      <o-table 
+        attr="ExpiryTable" 
+        service="Expiry" 
+        entity="Expiry" 
+        keys="id"
+        parent-keys="fruit_id:id"
+        columns="id;fruit_id;expiry_date"  
+        horizontal-scroll="yes"
+        detail-form-route="Expiry" 
+        edit-form-route="Expiry"
+        visible-columns="id;fruit_id;expiry_date"  
+        sort-columns="id" 
+        query-rows="25" 
+        quick-filter="yes"
+        row-height="medium" 
+        select-all-checkbox="true" 
+        pageable="yes"  
+        auto-adjust="true" 
+        virtual-scroll="yes" 
+        insert-button="yes" 
+        delete-button="yes" 
+        fixed-header="true" 
+        class="vertical-padding-8"
+        edition-mode="dblclick" 
+        horizontal-scroll="yes" class="fill-form">
+        
+          <o-table-column #id attr="id" title=" id*" type="integer" editable="no" required="no" content-align="center"></o-table-column>
+        
+          <o-table-column attr="fruit_id" title="fruit_id">
+    <o-table-cell-renderer-service attr="fruit_id" 
+        service="Fruit" entity="FruitType" columns="id;name"
+        parent-keys="id:fruit_id"
+        value-column="name" keys="fruit_id"
+        visible-columns="name" separator=" - " width="680px">
+    </o-table-cell-renderer-service>
+</o-table-column>
+        
+          <o-date-input #expiry_date attr="expiry_date" type="timestamp" label="expiry_date" editable="no" required="yes" format="LL" fxFlex="20%" class="form-field"></o-date-input>
+        
+        <o-table-paginator page-size-options="25;50;100"></o-table-paginator>
+      </o-table>
+    </div>
+</mat-tab>
+        
+        <mat-tab label="INVENTORY-fruit_id">
+    <div layout-padding>
+      <o-table 
+        attr="InventoryTable" 
+        service="Inventory" 
+        entity="Inventory" 
+        keys="id"
+        parent-keys="fruit_id:id"
+        columns="id;fruit_id;quantity_kg"  
+        horizontal-scroll="yes"
+        detail-form-route="Inventory" 
+        edit-form-route="Inventory"
+        visible-columns="id;fruit_id;quantity_kg"  
+        sort-columns="id" 
+        query-rows="25" 
+        quick-filter="yes"
+        row-height="medium" 
+        select-all-checkbox="true" 
+        pageable="yes"  
+        auto-adjust="true" 
+        virtual-scroll="yes" 
+        insert-button="yes" 
+        delete-button="yes" 
+        fixed-header="true" 
+        class="vertical-padding-8"
+        edition-mode="dblclick" 
+        horizontal-scroll="yes" class="fill-form">
+        
+          <o-table-column #id attr="id" title=" id*" type="integer" editable="no" required="no" content-align="center"></o-table-column>
+        
+          <o-table-column attr="fruit_id" title="fruit_id">
+    <o-table-cell-renderer-service attr="fruit_id" 
+        service="Fruit" entity="FruitType" columns="id;name"
+        parent-keys="id:fruit_id"
+        value-column="name" keys="fruit_id"
+        visible-columns="name" separator=" - " width="680px">
+    </o-table-cell-renderer-service>
+</o-table-column>
+        
+          <o-table-column #quantity_kg attr="quantity_kg" title="quantity_kg" type="real" min-decimal-digits="2" max-decimal-digits="4" min="0" max="1000000.0000" content-align="center"></o-table-column>
+        
+        <o-table-paginator page-size-options="25;50;100"></o-table-paginator>
+      </o-table>
+    </div>
+</mat-tab>
+        
+        <mat-tab label="ORDERDETAIL-fruit_id">
+    <div layout-padding>
+      <o-table 
+        attr="OrderDetailTable" 
+        service="OrderDetail" 
+        entity="OrderDetail" 
+        keys="id"
+        parent-keys="fruit_id:id"
+        columns="id;fruit_id;order_id;quantity_kg"  
+        horizontal-scroll="yes"
+        detail-form-route="OrderDetail" 
+        edit-form-route="OrderDetail"
+        visible-columns="id;fruit_id;order_id;quantity_kg"  
+        sort-columns="id" 
+        query-rows="25" 
+        quick-filter="yes"
+        row-height="medium" 
+        select-all-checkbox="true" 
+        pageable="yes"  
+        auto-adjust="true" 
+        virtual-scroll="yes" 
+        insert-button="yes" 
+        delete-button="yes" 
+        fixed-header="true" 
+        class="vertical-padding-8"
+        edition-mode="dblclick" 
+        horizontal-scroll="yes" class="fill-form">
+        
+          <o-table-column #id attr="id" title=" id*" type="integer" editable="no" required="no" content-align="center"></o-table-column>
+        
+          <o-table-column attr="fruit_id" title="fruit_id">
+    <o-table-cell-renderer-service attr="fruit_id" 
+        service="Fruit" entity="FruitType" columns="id;name"
+        parent-keys="id:fruit_id"
+        value-column="name" keys="fruit_id"
+        visible-columns="name" separator=" - " width="680px">
+    </o-table-cell-renderer-service>
+</o-table-column>
+        
+          <o-table-column attr="order_id" title="order_id">
+    <o-table-cell-renderer-service attr="order_id" 
+        service="Order" entity="OrderType" columns="id;id"
+        parent-keys="id:order_id"
+        value-column="id" keys="order_id"
+        visible-columns="id" separator=" - " width="680px">
+    </o-table-cell-renderer-service>
+</o-table-column>
+        
+          <o-table-column #quantity_kg attr="quantity_kg" title="quantity_kg" type="real" min-decimal-digits="2" max-decimal-digits="4" min="0" max="1000000.0000" content-align="center"></o-table-column>
+        
+        <o-table-paginator page-size-options="25;50;100"></o-table-paginator>
+      </o-table>
+    </div>
+</mat-tab>
+        
+        <mat-tab label="PROMOTION-fruit_id">
+    <div layout-padding>
+      <o-table 
+        attr="PromotionTable" 
+        service="Promotion" 
+        entity="Promotion" 
+        keys="id"
+        parent-keys="fruit_id:id"
+        columns="id;fruit_id;discount_percentage;start_date;end_date"  
+        horizontal-scroll="yes"
+        detail-form-route="Promotion" 
+        edit-form-route="Promotion"
+        visible-columns="id;fruit_id;discount_percentage;start_date;end_date"  
+        sort-columns="id" 
+        query-rows="25" 
+        quick-filter="yes"
+        row-height="medium" 
+        select-all-checkbox="true" 
+        pageable="yes"  
+        auto-adjust="true" 
+        virtual-scroll="yes" 
+        insert-button="yes" 
+        delete-button="yes" 
+        fixed-header="true" 
+        class="vertical-padding-8"
+        edition-mode="dblclick" 
+        horizontal-scroll="yes" class="fill-form">
+        
+          <o-table-column #id attr="id" title=" id*" type="integer" editable="no" required="no" content-align="center"></o-table-column>
+        
+          <o-table-column attr="fruit_id" title="fruit_id">
+    <o-table-cell-renderer-service attr="fruit_id" 
+        service="Fruit" entity="FruitType" columns="id;name"
+        parent-keys="id:fruit_id"
+        value-column="name" keys="fruit_id"
+        visible-columns="name" separator=" - " width="680px">
+    </o-table-cell-renderer-service>
+</o-table-column>
+        
+          <o-table-column #discount_percentage attr="discount_percentage" title="discount_percentage" type="real" min-decimal-digits="2" max-decimal-digits="4" min="0" max="1000000.0000" content-align="center"></o-table-column>
+        
+          <o-date-input #start_date attr="start_date" type="timestamp" label="start_date" editable="no" required="yes" format="LL" fxFlex="20%" class="form-field"></o-date-input>
+        
+          <o-date-input #end_date attr="end_date" type="timestamp" label="end_date" editable="no" required="yes" format="LL" fxFlex="20%" class="form-field"></o-date-input>
+        
+        <o-table-paginator page-size-options="25;50;100"></o-table-paginator>
+      </o-table>
+    </div>
+</mat-tab>
+        
+        <mat-tab label="SALE-fruit_id">
+    <div layout-padding>
+      <o-table 
+        attr="SaleTable" 
+        service="Sale" 
+        entity="Sale" 
+        keys="id"
+        parent-keys="fruit_id:id"
+        columns="id;employee_id;fruit_id;quantity_kg;sale_date"  
+        horizontal-scroll="yes"
+        detail-form-route="Sale" 
+        edit-form-route="Sale"
+        visible-columns="id;employee_id;fruit_id;quantity_kg;sale_date"  
+        sort-columns="id" 
+        query-rows="25" 
+        quick-filter="yes"
+        row-height="medium" 
+        select-all-checkbox="true" 
+        pageable="yes"  
+        auto-adjust="true" 
+        virtual-scroll="yes" 
+        insert-button="yes" 
+        delete-button="yes" 
+        fixed-header="true" 
+        class="vertical-padding-8"
+        edition-mode="dblclick" 
+        horizontal-scroll="yes" class="fill-form">
+        
+          <o-table-column #id attr="id" title=" id*" type="integer" editable="no" required="no" content-align="center"></o-table-column>
+        
+          <o-table-column attr="employee_id" title="employee_id">
+    <o-table-cell-renderer-service attr="employee_id" 
+        service="Employee" entity="EmployeeType" columns="id;name"
+        parent-keys="id:employee_id"
+        value-column="name" keys="employee_id"
+        visible-columns="name" separator=" - " width="680px">
+    </o-table-cell-renderer-service>
+</o-table-column>
+        
+          <o-table-column attr="fruit_id" title="fruit_id">
+    <o-table-cell-renderer-service attr="fruit_id" 
+        service="Fruit" entity="FruitType" columns="id;name"
+        parent-keys="id:fruit_id"
+        value-column="name" keys="fruit_id"
+        visible-columns="name" separator=" - " width="680px">
+    </o-table-cell-renderer-service>
+</o-table-column>
+        
+          <o-table-column #quantity_kg attr="quantity_kg" title="quantity_kg" type="real" min-decimal-digits="2" max-decimal-digits="4" min="0" max="1000000.0000" content-align="center"></o-table-column>
+        
+          <o-date-input #sale_date attr="sale_date" type="timestamp" label="sale_date" editable="no" required="yes" format="LL" fxFlex="20%" class="form-field"></o-date-input>
+        
+        <o-table-paginator page-size-options="25;50;100"></o-table-paginator>
+      </o-table>
+    </div>
+</mat-tab>
+        
+        <mat-tab label="SALEDETAIL-fruit_id">
+    <div layout-padding>
+      <o-table 
+        attr="SaleDetailTable" 
+        service="SaleDetail" 
+        entity="SaleDetail" 
+        keys="id"
+        parent-keys="fruit_id:id"
+        columns="id;fruit_id;sale_id;price_sold"  
+        horizontal-scroll="yes"
+        detail-form-route="SaleDetail" 
+        edit-form-route="SaleDetail"
+        visible-columns="id;fruit_id;sale_id;price_sold"  
+        sort-columns="id" 
+        query-rows="25" 
+        quick-filter="yes"
+        row-height="medium" 
+        select-all-checkbox="true" 
+        pageable="yes"  
+        auto-adjust="true" 
+        virtual-scroll="yes" 
+        insert-button="yes" 
+        delete-button="yes" 
+        fixed-header="true" 
+        class="vertical-padding-8"
+        edition-mode="dblclick" 
+        horizontal-scroll="yes" class="fill-form">
+        
+          <o-table-column #id attr="id" title=" id*" type="integer" editable="no" required="no" content-align="center"></o-table-column>
+        
+          <o-table-column attr="fruit_id" title="fruit_id">
+    <o-table-cell-renderer-service attr="fruit_id" 
+        service="Fruit" entity="FruitType" columns="id;name"
+        parent-keys="id:fruit_id"
+        value-column="name" keys="fruit_id"
+        visible-columns="name" separator=" - " width="680px">
+    </o-table-cell-renderer-service>
+</o-table-column>
+        
+          <o-table-column attr="sale_id" title="sale_id">
+    <o-table-cell-renderer-service attr="sale_id" 
+        service="Sale" entity="SaleType" columns="id;id"
+        parent-keys="id:sale_id"
+        value-column="id" keys="sale_id"
+        visible-columns="id" separator=" - " width="680px">
+    </o-table-cell-renderer-service>
+</o-table-column>
+        
+          <o-table-column #price_sold attr="price_sold" title="price_sold" type="real" min-decimal-digits="2" max-decimal-digits="4" min="0" max="1000000.0000" content-align="center"></o-table-column>
+        
+        <o-table-paginator page-size-options="25;50;100"></o-table-paginator>
+      </o-table>
+    </div>
+</mat-tab>
+        
+        <mat-tab label="SUPPLIERFRUIT-fruit_id">
+    <div layout-padding>
+      <o-table 
+        attr="SupplierFruitTable" 
+        service="SupplierFruit" 
+        entity="SupplierFruit" 
+        keys="id"
+        parent-keys="fruit_id:id"
+        columns="id;fruit_id;supplier_id"  
+        horizontal-scroll="yes"
+        detail-form-route="SupplierFruit" 
+        edit-form-route="SupplierFruit"
+        visible-columns="id;fruit_id;supplier_id"  
+        sort-columns="id" 
+        query-rows="25" 
+        quick-filter="yes"
+        row-height="medium" 
+        select-all-checkbox="true" 
+        pageable="yes"  
+        auto-adjust="true" 
+        virtual-scroll="yes" 
+        insert-button="yes" 
+        delete-button="yes" 
+        fixed-header="true" 
+        class="vertical-padding-8"
+        edition-mode="dblclick" 
+        horizontal-scroll="yes" class="fill-form">
+        
+          <o-table-column #id attr="id" title=" id*" type="integer" editable="no" required="no" content-align="center"></o-table-column>
+        
+          <o-table-column attr="fruit_id" title="fruit_id">
+    <o-table-cell-renderer-service attr="fruit_id" 
+        service="Fruit" entity="FruitType" columns="id;name"
+        parent-keys="id:fruit_id"
+        value-column="name" keys="fruit_id"
+        visible-columns="name" separator=" - " width="680px">
+    </o-table-cell-renderer-service>
+</o-table-column>
+        
+          <o-table-column attr="supplier_id" title="supplier_id">
+    <o-table-cell-renderer-service attr="supplier_id" 
+        service="Supplier" entity="SupplierType" columns="id;name"
+        parent-keys="id:supplier_id"
+        value-column="name" keys="supplier_id"
+        visible-columns="name" separator=" - " width="680px">
+    </o-table-cell-renderer-service>
+</o-table-column>
+        
+        <o-table-paginator page-size-options="25;50;100"></o-table-paginator>
+      </o-table>
+    </div>
+</mat-tab>
+        
+      </mat-tab-group>
+      
+    </o-form>
+  </o-form-container>
+</div>
